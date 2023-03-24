@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.timezone import datetime
 from tinymce import models as tinymce_models
-
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 
 class Post(models.Model):
     # class Status(models.IntegerChoices):
@@ -18,7 +18,7 @@ class Post(models.Model):
         null=True,
     )
     content = tinymce_models.HTMLField(help_text = "Content of post")
-    author_id = models.ForeignKey(
+    author = models.ForeignKey(
         User, 
         on_delete=models.CASCADE
     )
@@ -58,11 +58,13 @@ class Comment(models.Model):
     #     PUBLIC = 1
 
     content = models.TextField()
-    author_id = models.ForeignKey(
+    author = models.ForeignKey(
         User, 
+        blank=True,
+        null=True,
         on_delete=models.CASCADE
     )
-    post_id = models.ForeignKey(
+    post = models.ForeignKey(
         Post, 
         on_delete=models.CASCADE
     )
