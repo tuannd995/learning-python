@@ -1,8 +1,6 @@
-<head>
-    {% load static %}
-</head>
+{% extends "base.html" %}
 
-
+{% block content %}
 <h1>{{ post.title }}</h1>
 <p>{{ post.content|safe }}</p>
 
@@ -22,3 +20,4 @@
     {{ form.as_p }}
     <button type="submit" class="save btn btn-default">Send</button>
 </form>
+{% endblock %}
