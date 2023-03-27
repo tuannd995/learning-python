@@ -44,6 +44,16 @@ class Post(models.Model):
         help_text = "0: Draft, 1: Published",
         default = 0
     )
+    image = models.ImageField(
+        upload_to = 'uploads/media',
+        blank=True,
+        null=True
+    )
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super(Post, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
